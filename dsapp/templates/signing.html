@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/signing.css' %}"/>
+{% endblock style %}
+{% block content %}
+    <div class="wrapper">
+        <div class="alert alert-light invisible mt-1" id="deleteInstruction" role="alert">
+            To remove a signature, double-click on it.
+        </div>
+        <div class="sidebar">
+            <div class="sidebar-nav">
+                <ul class="list-group">
+                    <li class="list-group-item" id="addSign">
+                        <i class="fas fa-signature"> Add Signature</i>
+                    </li>
+                    <li class="list-group-item" id="applySign" data-url="{% url 'apply_signature' %}">
+                        <i class="fas fa-signature"> Sign </i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="document-container ">
+                            <div class="document-render" id="documentRender">
+                                <input type="hidden" value="{{ sign.image.url }}" id="signUrl">
+                                <input type="hidden" value="{{ pdf_file.path.url }}" id="pdfFile">
+                                <input type="hidden" value="{{ pdf_file.path.path }}" id="pdfFilePath">
+                                <input type="hidden" value="{{ pdf_file.title}}" id="pdfFileTitle">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dpi" style="height: 1in; left: -100%; position: absolute; top: -100%; width: 1in;" class="d-non"></div>
+{% endblock content %}
+
+{% block javascript %}
+    <script src="https://code.jquery.com/ui/1.13.0-rc.2/jquery-ui.min.js"
+            integrity="sha256-RQLbEU539dpygNMsBGZlplus6CkitaLy0btTCHcULpI="
+            crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-simulate/1.1.1/jquery.simulate.min.js"
+            integrity="sha512-99l4kQHM730187dXruSGULp7g34xamOKXWXHrzz1HuKuKrLg/VBpRTbbI8in5g8lUnzJkchunWlHlHznEbQzAw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer">
+    </script>
+    <script src="{% static 'js/pdfjs/pdf.js' %}"></script>
+    <script src="{% static 'js/pdfRender.js' %}"></script>
+    <script src="{% static 'js/signing.js' %}"></script>
+    <script src="{% static 'js/customAlerts.js' %}"></script>
+{% endblock javascript %}

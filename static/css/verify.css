@@ -1,0 +1,28 @@
+.row {
+    height: 100%;
+}
+
+#preview {
+    height: 70vh;
+    margin-bottom: 20px;
+}
+
+
+.jumbotron {
+    background-color: gainsboro;
+    padding-bottom: 5px;
+    padding-top: 10px;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.list-group-item:hover {
+    background-color: lightblue;
+}
+
+#pdfPrev {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+}

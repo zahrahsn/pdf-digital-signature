@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}"/>
+{% endblock style %}
+{% block content %}
+    <div class="container mt-2">
+        <div class="jumbotron">
+            <div class="main-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <div class="mt-3">
+                                        <h4>{{ user.first_name }} {{ user.last_name }}</h4>
+                                        <p class="text-secondary mb-1">{{ user.email }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <input type="hidden" id="urlChangePass" value="{% url 'changePass' %}">
+                                <div class="form-group">
+                                    <label for="currentPass">Current Password</label>
+                                    <input type="password" class="form-control" id="currentPass">
+                                </div>
+                                <div class="form-group">
+                                    <label for="newPass">New Password</label>
+                                    <input type="password" class="form-control" id="newPass">
+                                </div>
+                                <div class="form-group">
+                                    <label for="newPassConf">Confirm New Password</label>
+                                    <input type="password" class="form-control" id="newPassConf">
+                                </div>
+                                <div class="row ml-2 mr-2">
+                                    <button type="button" id="btnCleanPass" class="col btn btn-secondary mb-2 mr-1">
+                                        Clean
+                                    </button>
+                                    <button type="button" id="btnChangePass" class="col btn btn-primary mb-2 ml-1">
+                                        Change
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card mb-3 {% if signature %} disabledDiv {% endif %} ">
+                            <div class="card-body">
+                                <div class="row d-flex justify-content-center mt-100">
+                                    <div class="col-md-12">
+                                        <div class="card-header">
+                                            <h5>Upload Signature</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <input type="hidden" id="urlUploadSign" value="{% url 'uploadSign' %}">
+                                            <input type="file" accept="image/png" class="d-none" id="signBrowse">
+                                            <form class="text-center  dropzone dz-clickable" id="signHolder">
+                                                <div class="dz-default dz-message">
+                                                    {% if signature %}
+                                                        <span>You have already uploaded your signature</span><br>
+                                                        <span>Contact site admin to change your signature</span>
+                                                    {% else %} <span>Click to upload PNG|JPG file</span>
+                                                    {% endif %}
+                                                </div>
+                                                <img class="{% if not signature %} d-none {% endif %} img-fluid"
+                                                     id="signImage"
+                                                        {% if signature %} src="{{ signature.image.url }}" {% endif %} >
+                                            </form>
+                                        </div>
+                                        {% if not signature %}
+                                            <div class="form-group mt-20">
+                                                <label for="signPass">Signature Password</label>
+                                                <input type="password" class="form-control" id="signPass">
+                                            </div>
+                                            <div class="form-group mt-20">
+                                                <label for="signPassConf">Confirm Password</label>
+                                                <input type="password" class="form-control" id="signPassConf">
+                                            </div>
+                                            <div class="text-center mt-20">
+                                                <button class="btn btn-primary" id="uploadSign">Upload Now</button>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascript %}
+    <script src="{% static 'js/profile.js' %}"></script>
+    <script src="{% static 'js/customAlerts.js' %}"></script>
+{% endblock javascript %}

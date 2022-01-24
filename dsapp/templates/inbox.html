@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/inbox.css' %}"/>
+{% endblock style %}
+{% block content %}
+    <div class="container mt-2">
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-sm-4 fileList">
+                    <div class="card mt-2" style="height: 100%; overflow-y: scroll">
+                        <div class="card-header" style="padding: 1px;">
+                            <div class="btn-group btn-group-justified mt-2" id="inboxDD">
+                                <button type="button" class="btn btn-primary" id="btnSelect">All</button>
+                                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">All</li>
+                                    <li class="dropdown-item">Unread</li>
+                                    <li class="dropdown-item">Read</li>
+                                    <li class="dropdown-item">Signed</li>
+                                    <li class="dropdown-item">Rejected</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group" id="messagesList">
+                                <input type="hidden" id="urlReject" value="{% url 'reject' %}">
+                                {% for doc in docs %}
+                                    <li class="card list-item"
+                                        onclick="readFile('{{ doc.path.url }}', '{{ doc.title }}', event)">
+                                        <div class="card-header" style="padding: 3px;">
+                                            {{ doc.title }}
+                                        </div>
+                                        <div class="card-body stat" data-stat="{{ doc.status.name }}"
+                                             style="padding: 3px;">
+                                            <small><b>Received from: </b>{{ doc.originUser.email }}</small><br/>
+                                            <small><b>Received on: </b>{{ doc.timestamp }}</small><br/>
+                                            <small><b>Status: </b>{{ doc.status.name }}</small>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8 preview">
+                    <form id="docForm" method="POST" action="{% url 'signing' %}" class="d-none">
+                        <input type="hidden" id="pdfFile" value="" name="pdfFile">
+                        <input type="hidden" id="fromPage" value="inbox" name="fromPage">
+                        <div id="btnSign" class="row">
+                            <div class="col-sm-6">
+                                <button type="button" id="reject" class="btn btn-secondary form-control mb-2 mt-2">
+                                    Reject
+                                </button>
+                            </div>
+                            <div class="col-sm-6">
+                                <button type="submit" class="btn btn-primary form-control mb-2 mt-2">To Signing Page
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="card mt-2" style="height: 100%">
+                        <div class="card-header">
+                            <strong>Document Preview</strong>
+                        </div>
+                        <div class="card-body">
+                            <iframe id="pdfPrev" type="application/pdf">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascript %}
+    <script src="{% static 'js/outbox.js' %}"></script>
+    <script src="{% static 'js/customAlerts.js' %}"></script>
+    <script src="{% static 'js/inbox.js' %}"></script>
+{% endblock javascript %}

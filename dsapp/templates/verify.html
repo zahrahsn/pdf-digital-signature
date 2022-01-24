@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/mdb.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/verify.css' %}"/>
+{% endblock style %}
+{% block content %}
+    <div class="container mt-2 non-scroll">
+        <div class="jumbotron">
+            <div class="main-body">
+                <div class="col-md-10 offset-md-1">
+                    <input type="hidden" id="urlVerify" value="{% url 'verify_signature' %}">
+                    <div class="card">
+                        <div class="card-header">
+                            Upload the PDF document
+                        </div>
+                        <div class="card-body">
+                            <form id="frmVerify">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <input type="file" accept="application/pdf" class="form-control" id="docFile">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button type="submit" class="btn btn-light-blue btn-block">Verify</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-sm-8 offset-sm-2" id="preview">
+                        <div class="card" style="height: 100%">
+                            <div class="card-header">
+                                Document Preview
+                            </div>
+                            <div class="card-body">
+                                <iframe id="pdfPrev" type="application/pdf" class="d-none"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade left" id="signatureModal" tabindex="-1" role="dialog" aria-labelledby="signatureModal"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Signatures' Info</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="signs-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-red" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>I
+{% endblock content %}
+
+{% block javascript %}
+    <script src="{% static 'js/mdb.js' %}"></script>
+    <script src="{% static 'js/customAlerts.js' %}"></script>
+    <script src="{% static 'js/verify.js' %}"></script>
+{% endblock javascript %}

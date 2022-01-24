@@ -1,0 +1,30 @@
+[
+  {
+    "model": "dsapp.SignStatus",
+    "pk": 1,
+    "fields": {
+      "name": "Unread"
+    }
+  },
+  {
+    "model": "dsapp.SignStatus",
+    "pk": 2,
+    "fields": {
+      "name": "Read"
+    }
+  },
+  {
+    "model": "dsapp.SignStatus",
+    "pk": 3,
+    "fields": {
+      "name": "Signed"
+    }
+  },
+  {
+    "model": "dsapp.SignStatus",
+    "pk": 4,
+    "fields": {
+      "name": "Rejected"
+    }
+  }
+]

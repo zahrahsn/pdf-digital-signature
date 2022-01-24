@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/outbox.css' %}" xmlns="http://www.w3.org/1999/html"/>
+{% endblock style %}
+{% block content %}
+
+    <div class="container mt-2">
+        <div class="jumbotron">
+            <input type="hidden" id="urlsenddoc" value="{% url 'senddoc' %}">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Upload & Send PDF</h4>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="col-sm-8 offset-sm-2">
+                            <form enctype="multipart/form-data" onsubmit="onFormSubmit(event)">
+                                <div class="row form-group">
+                                    <label for="email1" class="form-label">Email address:</label>
+                                    <input type="email" class="form-control" id="email1">
+                                </div>
+                                <div class="row form-group">
+                                    <label class="form-label" for="file1"> Browse File </label>
+                                    <input type="file" class="form-control" id="file1"/>
+                                </div>
+                                <div class="row form-group">
+                                    <button type="submit" class="btn btn-primary ml-auto">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 fileList">
+                    <div class="card mt-2" style="height: 100%; overflow-y: scroll">
+                        <div class="card-header" style="padding: 1px;">
+                            <div class="btn-group btn-group-justified" id="inboxDD">
+                                <button type="button" class="btn btn-primary" id="btnSelect">All</button>
+                                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">All</li>
+                                    <li class="dropdown-item">Unread</li>
+                                    <li class="dropdown-item">Read</li>
+                                    <li class="dropdown-item">Signed</li>
+                                    <li class="dropdown-item">Rejected</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group mt-2" id="outboxList">
+                                {% for sent in keys %}
+                                    <li class="card list-item"
+                                        onclick="readFile('{{ sent.path.url }}', '{{ sent.title }}', event)">
+                                        <div class="card-header" style="padding: 2px;">
+                                            {{ sent.title }}
+                                        </div>
+                                        <div class="card-body stat" data-stat="{{ sent.status.name }}"
+                                             style="padding: 2px;">
+                                            <small><b>Sent to: </b>{{ sent.receiverUser.email }}</small><br/>
+                                            <small><b>Sent on: </b>{{ sent.timestamp }}</small><br/>
+                                            <small><b>Status: </b>{{ sent.status.name }}</small>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="card mt-2" style="height: 100%">
+                        <div class="card-header">
+                            <strong>Document Preview</strong>
+                        </div>
+                        <div class="card-body">
+                            <iframe id="pdfPrev" type="application/pdf">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascript %}
+    <script src="{% static 'js/customAlerts.js' %}"></script>
+    <script src="{% static 'js/outbox.js' %}"></script>
+{% endblock %}
