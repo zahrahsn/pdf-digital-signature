@@ -15,11 +15,3 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'digitalsignature.settings')
 
 application = get_wsgi_application()
-
-User.objects.create_superuser(
-    username=os.getenv("SUPERUSER_USERNAME"),
-    email=os.getenv("SUPERUSER_EMAIL"),
-    password=os.getenv("SUPERUSER_PASS"),
-    is_active=True,
-    is_staff=True
-)
