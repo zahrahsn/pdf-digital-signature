@@ -1,0 +1,8 @@
+venv
+env
+.env
+.git
+media/certificates/*
+media/documents/*
+*.pem
+migrations

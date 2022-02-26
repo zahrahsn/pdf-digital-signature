@@ -1,0 +1,13 @@
+.vscode
+.DS_Store
+.env
+*.pem
+.idea
+*.pyc
+*.png
+*.sqlite3
+env
+venv
+media
+__pycache__
+migrations
