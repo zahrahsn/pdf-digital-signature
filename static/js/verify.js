@@ -23,8 +23,7 @@ $(document).ready(function () {
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 errorAlert(
-                    "<strong>Something went wrong!</strong>",
-                    "</p>Please try to HARD-REFRESH the page.</p>"
+                   xhr.responseText
                 );
             }
         });

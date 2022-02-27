@@ -248,4 +248,4 @@ def verify_signature(request):
             }
         )
     except Exception as ex:
-        return HttpResponseServerError(ex)
+        return HttpResponseServerError(f"Validation Faliure\n{ex}")
